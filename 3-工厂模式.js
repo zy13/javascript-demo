@@ -30,3 +30,6 @@ function Person(name, age, hobby) {
 // 构造函数创建对象
 let zs = Person('张三', 20, '喜欢篮球')
 let ls = Person('李四', 21, '喜欢足球')
+
+console.log(zs)
+console.log(ls)
