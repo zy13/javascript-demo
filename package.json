@@ -1,0 +1,26 @@
+{
+  "name": "javascript-demo",
+  "version": "1.0.0",
+  "description": "​`设计模式`是软件开发人员在软件开发过程中面临的一些具有代表性问题的**解决方案**。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的；\r ### 单例模式",
+  "main": "1-单例模式.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zy13/javascript-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zy13/javascript-demo/issues"
+  },
+  "homepage": "https://github.com/zy13/javascript-demo#readme",
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "jquery": "^3.6.0"
+  }
+}
