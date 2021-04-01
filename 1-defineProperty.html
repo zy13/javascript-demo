@@ -8,6 +8,7 @@
 </head>
 <body>
   <script>
+    // - 创建对象
     value = '张三'
     let obj = Object.defineProperty({}, 'name', {
       configurable: true,
@@ -21,6 +22,50 @@
         value = newValue
       }
     })
+
+    // 修改对象属性
+    let data = {
+      name: '张三',
+      age: 20
+    }
+    let val = data.name
+    Object.defineProperty(data, 'name', {
+      configurable: true,
+      enumerable: true,
+      get() {
+        console.log('get');
+        return val
+      },
+      set(newValue) {
+        console.log('set');
+        val = newValue
+      }
+    })
+
+    // 数据观察 ，数据劫持；
+    function Observer(data) {
+      let keys = Object.keys(data) 
+      keys.forEach(key => {
+        let value = data[key]
+        Object.defineProperty(data, key, {
+          configurable: true,
+          enumerable: true,
+          get() {
+            console.log('get');
+            return value
+          },
+          set(newValue) {
+            console.log('set');
+            value = newValue
+          }
+        })
+      })
+    }
+    let obj1 = {
+      name: '张三',
+      age: 20
+    }
+    Observer(obj1)
   </script>
 </body>
 </html>
