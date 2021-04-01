@@ -70,6 +70,7 @@ class Vue{
   }
 }
 
+// 管理器
 class Dep {
   constructor() {
     this.subs = [];
@@ -84,7 +85,7 @@ class Dep {
   }
 }
 
-// 订阅者；
+// 观察者；
 class Watcher {
   constructor(data,key,cb) {
     this.cb = cb;

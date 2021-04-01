@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let handler = {}
+    // 添加事件
+    function addEvent(eventName, fn){
+      if(handler[eventName] === 'undefined') {
+        handler[eventName] = []
+      }
+      handler[eventName].push(fn)
+    }
+    // 触发事件
+    function triggrt(eventName) {
+      handler[eventName].forEach(fn => {
+        fn()
+      })
+    }
+  </script>
+</body>
+</html>
