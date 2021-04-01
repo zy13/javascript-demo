@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    value = '张三'
+    let obj = Object.defineProperty({}, 'name', {
+      configurable: true,
+      enumerable: true,
+      get() {
+        console.log('get');
+        return value
+      },
+      set(newValue) {
+        console.log('set');
+        value = newValue
+      }
+    })
+  </script>
+</body>
+</html>
