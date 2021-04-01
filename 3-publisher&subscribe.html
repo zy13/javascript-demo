@@ -12,6 +12,7 @@
     // 管理器
     class Dep{
       constructor() {
+        // 收集watcher
         this.subs = []
       }
       addSub(sub) {
@@ -19,13 +20,16 @@
         this.subs.push(sub)
       }
       notify(newValue) {
+        // 执行回调函数
         this.subs.forEach(sub => {
           sub.update(newValue)
         })
       }
     }
 
-    // 订阅者 - 触发事件
+    // 订阅者 
+    // - 触发get: 用于Dep收集watcher
+    // - 执行回调函数
     class Watcher{
       constructor(data, key, cb) {
         this.cb = cb
@@ -54,6 +58,7 @@
           enumerable: true,
           get() {
             console.log('get');
+            // 收集watch
             if(Dep.target) {
               dep.addSub(Dep.target)
             }
