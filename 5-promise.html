@@ -5,49 +5,99 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <!-- <script>
+    setTimeout(function(){
+      console.log('11-setTimeout');
+    })
+  </script> -->
 </head>
 <body>
   <script>
+    let p1 = new Promise((resolve,reject) => {
+      setTimeout(()=>{
+        resolve(222)
+      }, 2000)
+    })
+    let p2 = new Promise((resolve, reject) => {
+      setTimeout(()=>{
+        resolve(111)
+      }, 1000)
+    })
+    console.dir(Promise)
+    // Promise.race([p1,p2]).then(res => {
+    //   console.log(res);
+    // })
+    Promise.allSettled([p1,p2]).then(res => {
+      console.log(777, res);
+    })
+  </script>
+  <script>
     // 宏任务 - 异步任务
-    console.log(111);
-    setTimeout(function(){
-      console.log('setTimeout');
-    })
-    // 三种状态：
-    // Promise不是严格意义的微任务
-    let p = new Promise((resolve, reject) => {
-      console.log('执行');
-      resolve('成功')
-    })
+    // console.log(111);
+    // setTimeout(function(){
+    //   console.log('setTimeout');
+    // })
+    // // 三种状态：
+    // // Promise不是严格意义的微任务
+    // let p = new Promise((resolve, reject) => {
+    //   // console.log('执行');
+    //   resolve('成功')
+    // })
     // console.log(p);
-    // 1.多个then调用 2.then链式
+    // 1.多个then调用（宏任务、微任务: 解决执行顺序的问题） 2.then链式
     // then是微任务
-    p.then(res => {
-      console.log(111, res);
-    },err=>{
-      console.log(err);
-    })
-    console.log(222);
-    p.then(res => {
-      console.log(2);
-    })
-    console.log(333);
+    // p.then(res => {
+    //   setTimeout(function(){
+    //     console.log('555-setTimeout');
+    //   })
+    //   console.log(111, res);
+    // },err=>{
+    //   console.log(err);
+    // })
+    // console.log(222);
+    // p.then(res => {
+    //   console.log(2);
+    // })
+    // console.log(333);
+    // p.then(res=>{
+    //   console.log(res);
+    //   return 1231
+    // })
+
+    // p.then(res => {
+    //   console.log(res);
+    // })
+
+    // 链式调用: 后一个then拿到前一个then返回的值
+    // p.then(res => {
+    //   // return 666
+    //   return new Promise(resolve=>{
+    //     resolve(888)
+    //   })
+    // }).then(res => {
+    //   console.log(res);
+    // })
 
     // 任务执行顺序：同步 -> 异步 （微任务）-> 异步宏任务
     // 1、先执行同步任务, 属于一个大的宏任务：console.log(111)-->console.log('执行')-->console.log(222)--> console.log(333);
     // 2、执行完这个大的同步队列宏任务之后，执行异步微任务: console.log(111, res) --> console.log(2)
     // 4、异步微任务执行完之后，执行下一个异步宏任务setTimeout：console.log('setTimeout')
   </script>
-  <script>
+  <!-- <script>
+    setTimeout(function(){
+      console.log('33-setTimeout');
+    })
     console.log('我是第二个script标签');
     let p2 = new Promise(resolve=>{
       console.log('第二-111');
       resolve('第2 promise')
     })
+    // then返回值情况 返还promise对象（原封不动） 和 非promise对象（包装成promise对象） 切记：重复包装
     p2.then(res => {
       console.log('弟2 - 222', res);
+      return 666
     })
-    console.log('弟2 - 333');
-  </script>
+    console.log(p2);
+  </script> -->
 </body>
 </html>

@@ -10,21 +10,44 @@
   <script  type="module">
     import MyPromise from './mypromise.js'
     let p = new MyPromise((resolve, reject) => {
-      console.log('调用resolve | reject');
+      // console.log('调用resolve | reject');
       resolve('成功')
       // reject('失败')
     })
     // then执行的时机 
     // 在实例化传入的回调时，1.调用resolve的时候执行then的onResolve，2.调用reject的时候执行onReject
     // 先调用resolve、reject，再执行then
-    p.then(res => {
-      console.log(1, res);
-    },err => {
-      console.log(err);
-    })
+    // p.then(res => {
+    //   console.log(1, res);
+    //   return 111
+    // },err => {
+    //   console.log(err);
+    // })
 
-    p.then(res => {
-      console.log(2,res);
+    // p.then(res => {
+    //   console.log(res);
+    //   return '链式'
+    // }).then(res=>{
+    //   console.log(res);
+    //   return new MyPromise(resolve => {
+    //     resolve('8989')
+    //   })
+    // }).then(res=>{
+    //   console.log(res);
+    // })
+
+    let p1 = new MyPromise((resolve,reject) => {
+      setTimeout(()=>{
+        resolve(222)
+      }, 2000)
+    })
+    let p2 = new MyPromise((resolve, reject) => {
+      setTimeout(()=>{
+        reject(111)
+      }, 1000)
+    })
+    MyPromise.allSettled([p1,p2]).then(res => {
+      console.log(777, res);
     })
   </script>
 </body>
