@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的</title>
+</head>
+<body>
+  <script  type="module">
+    import MyPromise from './mypromise.js'
+    let p = new MyPromise((resolve, reject) => {
+      console.log('调用resolve | reject');
+      resolve('成功')
+      // reject('失败')
+    })
+    // then执行的时机 
+    // 在实例化传入的回调时，1.调用resolve的时候执行then的onResolve，2.调用reject的时候执行onReject
+    // 先调用resolve、reject，再执行then
+    p.then(res => {
+      console.log(1, res);
+    },err => {
+      console.log(err);
+    })
+
+    p.then(res => {
+      console.log(2,res);
+    })
+  </script>
+</body>
+</html>

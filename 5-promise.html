@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 宏任务 - 异步任务
+    console.log(111);
+    setTimeout(function(){
+      console.log('setTimeout');
+    })
+    // 三种状态：
+    // Promise不是严格意义的微任务
+    let p = new Promise((resolve, reject) => {
+      console.log('执行');
+      resolve('成功')
+    })
+    // console.log(p);
+    // 1.多个then调用 2.then链式
+    // then是微任务
+    p.then(res => {
+      console.log(111, res);
+    },err=>{
+      console.log(err);
+    })
+    console.log(222);
+    p.then(res => {
+      console.log(2);
+    })
+    console.log(333);
+
+    // 任务执行顺序：同步 -> 异步 （微任务）-> 异步宏任务
+    // 1、先执行同步任务, 属于一个大的宏任务：console.log(111)-->console.log('执行')-->console.log(222)--> console.log(333);
+    // 2、执行完这个大的同步队列宏任务之后，执行异步微任务: console.log(111, res) --> console.log(2)
+    // 4、异步微任务执行完之后，执行下一个异步宏任务setTimeout：console.log('setTimeout')
+  </script>
+  <script>
+    console.log('我是第二个script标签');
+    let p2 = new Promise(resolve=>{
+      console.log('第二-111');
+      resolve('第2 promise')
+    })
+    p2.then(res => {
+      console.log('弟2 - 222', res);
+    })
+    console.log('弟2 - 333');
+  </script>
+</body>
+</html>
