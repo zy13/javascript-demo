@@ -14,9 +14,12 @@
 <body>
   <script>
     let p1 = new Promise((resolve,reject) => {
-      setTimeout(()=>{
-        resolve(222)
-      }, 2000)
+      // setTimeout(()=>{
+      //   resolve(222)
+      // }, 2000)
+    })
+    p1.then(res => {
+      console.log(333);
     })
     let p2 = new Promise((resolve, reject) => {
       setTimeout(()=>{

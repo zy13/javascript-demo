@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class KPromise{
+      constructor(handle){
+        this['[[PromiseState]]'] = 'pending'
+        this['[[PromiseResult]]'] = 'undefined'
+        this.resolveFnQueue = []
+        this.rejectFnQueue = []
+        handle(this._resolve.bind(this), this._reject.bind(this))
+      }
+      _resolve(val) {
+        this['[[PromiseState]]'] = 'fulfilled'
+        this['[[PromiseResult]]'] = val
+        let run = () => {
+          let cb;
+          while(cb=this.resolveFnQueue.shift()) {
+            cb(val)
+          }
+        }
+        let mo = new MutationObserver(run)
+        mo.observe(document.body, {
+          attributes: true
+        })
+        document.body.setAttribute('zy','zy')
+      }
+      _reject(err){
+        this['[[PromiseState]]'] = 'rejected'
+        this['[[PromiseResult]]'] = err
+        let run = () => {
+          let cb;
+          while(cb=this.rejectFnQueue.shift()) {
+            cb(val)
+          }
+        }
+        let mo = new MutationObserver(run)
+        mo.observe(document.body, {
+          attributes: true
+        })
+        document.body.setAttribute('zy','zy')
+      }
+      then(onResolve, onReject) {
+        this.resolveFnQueue.push(onResolve)
+        this.rejectFnQueue.push(onReject)
+        return new KPromise((resolve,reject) => {
+          let res = onResolve && onResolve()
+          if(res instanceof KPromise) {
+
+          } else {
+            
+          }
+        })
+      }
+    }
+
+    let p1 = new KPromise((resolve,reject) => {
+      resolve(11)
+      // reject(22)
+    })
+    // let p2 = new KPromise((resolve,reject) => {
+    //   resolve(22)
+    //   // reject(22)
+    // })
+    p1.then(res => {
+      console.log(11);
+      return 88
+    }).then(res => {
+      console.log(res);
+    })
+
+    // 链式
+
+    
+    
+  </script>
+</body>
+</html>
