@@ -122,10 +122,17 @@
           })
         })
       }
+      finally(cb) {
+        this.then(cb)
+      }
+      catch(cb) {
+        this.then((undefined, err) => {
+          cb && cb(err)
+        })
+      }
     }
     const p1 = new Promise((resolve, reject) => {
-      resolve('11')
-      // reject('err')
+      resolve('11');
     })
 
     const p2 = new Promise((resolve, reject) => {
